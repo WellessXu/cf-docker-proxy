@@ -107,7 +107,9 @@ async function handleRequest(request) {
   const newUrl = new URL(upstream + url.pathname);
   const newReq = new Request(newUrl, {
     method: request.method,
-    headers: request.headers,
+    //headers: request.headers,
+    headers: new Headers(request.headers), 
+    body: request.body, // 加上 body 转发，更严谨
     // don't follow redirect to dockerhub blob upstream
     redirect: isDockerHub ? "manual" : "follow",
   });
